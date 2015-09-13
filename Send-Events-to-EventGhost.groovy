@@ -104,9 +104,9 @@ def subscribeToEvents() {
 
 def eventHandler(evt) {
 	def egServer = "${settings.egServer}:${settings.egPort}"
-    def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}.${evt.value}"
-    def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
-    log.debug "processed event ${evt.name} from device ${evt.displayName} with value ${evt.value}"
-    log.debug "egRestCommand:  $egRestCommand"
+	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}.${evt.value}"
+	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
+	log.debug "processed event ${evt.name} from device ${evt.displayName} with value ${evt.value}"
+	log.debug "egRestCommand:  $egRestCommand"
 	sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommand HTTP/1.1\r\nHOST: $egServer\r\n\r\n""", physicalgraph.device.Protocol.LAN))
 }
