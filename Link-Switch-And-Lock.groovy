@@ -1,16 +1,11 @@
 /**
- *  Copyright 2015 aderusha
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- *  in compliance with the License. You may obtain a copy of the License at:
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
- *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
- *  for the specific language governing permissions and limitations under the License.
- *
  *  Link Switch and Lock
+ *
+ *  Link state between a switch and a lock. Switch On <=> Locked, Switch Off <=> Unlocked
+ *
+ *  https://github.com/aderusha/SmartThings/blob/master/Link-Switch-And-Lock.groovy
+ *  Copyright 2015 aderusha
+ *  Version 1.0.0 - 2015-09-13 - Initial release
  *
  *  I want to be able to control a lock device from a SmartApp that can only handle switch devices.  
  *  This SmartApp will link a lock and a button/switch device such that:
@@ -22,10 +17,17 @@
  *  To use this SmartApp, first create a virtual device using the On/Off Button Tile device type.
  *  Install this SmartApp, select your virtual On/Off Button Tile, then your lock.  
  *
- *  Author: aderusha
+ *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License. You may obtain a copy of the License at:
  *
- *  Date: 2015-09-12
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+ *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
+ *  for the specific language governing permissions and limitations under the License.
+ *
  */
+
 definition(
 	name: "Link Switch and Lock",
 	namespace: "aderusha",
@@ -85,4 +87,3 @@ def unlockedHandler(evt) {
 	log.debug "Turning off switch: $switch1"
    	switch1.off()
 }
-
