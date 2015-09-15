@@ -1,33 +1,36 @@
 /**
- *  Send Events to EventGhost
- *
- *  Send SmartThings events to EventGhost
- *
- *  https://github.com/aderusha/SmartThings/blob/master/Send-Events-to-EventGhost.groovy
- *  Copyright 2015 aderusha
- *  Version 1.0.0 - 2015-09-13 - Initial release
- *  Version 1.1.0 - 2015-09-15 - Changed handling of binary(ish) vs non-binary values to allow sending
- *                               value data to EG to be handled via Python and eg.event.payload[]
- *
- *  This SmartApp will send selected events to an EventGhost server running the Webserver plugin.
- *  EventGhost is a Windows application used for event automation, find out more here: http://www.eventghost.org/
- *  How to setup the EventGhost Webserver plugin: http://www.eventghost.org/mediawiki/index.php?title=Webserver
- *
- *  TODO:
- *  - Currently doesn't support user authentication or SSL.  EG Webserver authentication must be disabled by leaving
- *    the username/password field in the plugin configuration blank
- *  - Figure out how to monitor Sonos "musicPlayer" events
- *  - Add additional capabilities to monitor
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- *  in compliance with the License. You may obtain a copy of the License at:
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
- *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
- *  for the specific language governing permissions and limitations under the License.
- *
+ *	Send Events to EventGhost
+ *	
+ *	Send SmartThings events to EventGhost
+ *	
+ *	https://github.com/aderusha/SmartThings/blob/master/Send-Events-to-EventGhost.groovy
+ *	Copyright 2015 aderusha
+ *	Version 1.0.0 - 2015-09-13 - Initial release
+ *	Version 1.1.0 - 2015-09-15 - Changed handling of binary(ish) vs non-binary values to allow sending
+ *	                             value data to EG to be handled via Python and eg.event.payload[]
+ *	
+ *	This SmartApp will send selected events to an EventGhost server running the Webserver plugin.
+ *	EventGhost is a Windows application used for event automation, find out more here: http://www.eventghost.org/
+ *	How to setup the EventGhost Webserver plugin: http://www.eventghost.org/mediawiki/index.php?title=Webserver
+ *	
+ *	TODO:
+ *	- Currently doesn't support user authentication or SSL.  EG Webserver authentication must be disabled by leaving
+ *	  the username/password field in the plugin configuration blank
+ *	- Figure out how to monitor Sonos "musicPlayer" events
+ *	- Add additional capabilities to monitor
+ *	
+ *	ISSUES:
+ *	- "Color" values are not being received by EG, presumably due to the "#" character being mishandled somehow
+ *	
+ *	Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ *	in compliance with the License. You may obtain a copy of the License at:
+ *	
+ *	    http://www.apache.org/licenses/LICENSE-2.0
+ *	
+ *	Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+ *	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
+ *	for the specific language governing permissions and limitations under the License.
+ *	
  */
 
 definition(
