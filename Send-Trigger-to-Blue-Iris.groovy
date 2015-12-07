@@ -5,7 +5,7 @@
  *	
  *	https://github.com/aderusha/SmartThings/blob/master/Send-Trigger-to-Blue-Iris.groovy
  *	Copyright 2015 aderusha
- *	Version 0.0.1 - 2015-12-06 - Initial test release
+ *	Version	0.0.1 - 2015-12-06 - Initial test release
  *			0.0.2 - 2015-12-06 - Only trigger on "motion" or "open", added more debug logging
  *
  *	This SmartApp will send selected events to a Blue Iris server on the local network.
