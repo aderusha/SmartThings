@@ -10,7 +10,7 @@
  *	This SmartApp will send selected events to a Blue Iris server on the local network.
  *	
  *	TODO:
- *  - Test this mess
+ *	- Test this mess
  *	
  *	ISSUES:
  *	-
@@ -25,8 +25,6 @@
  *	for the specific language governing permissions and limitations under the License.
  *	
  */
-
-
 
 definition(
     name: "Send Tigger to Blue Iris",
@@ -71,10 +69,12 @@ def subscribeToEvents() {
 }
 
 def eventHandlerBinary(evt) {
-	def biHost = "${settings.biServer}:${settings.biPort}"
-	def biRawCommand = "admin?camera=${settings.biCamera}&trigger&user=${settings.biUser}&pw=${settings.biPass}"
-	def biRestCommand = java.net.URLEncoder.encode(biRawCommand)
-	log.debug "processed event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
-	log.debug "biRestCommand:  $biRestCommand"
-	sendHubCommand(new physicalgraph.device.HubAction("""GET /?$biRestCommand HTTP/1.1\r\nHOST: $biHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+	if ((evt.value == "active") || (evt.value == "open")) {
+		def biHost = "${settings.biServer}:${settings.biPort}"
+		def biRawCommand = "admin?camera=${settings.biCamera}&trigger&user=${settings.biUser}&pw=${settings.biPass}"
+		def biRestCommand = java.net.URLEncoder.encode(biRawCommand)
+		log.debug "processed event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
+		log.debug "biRestCommand:  $biRestCommand"
+		sendHubCommand(new physicalgraph.device.HubAction("""GET /?$biRestCommand HTTP/1.1\r\nHOST: $biHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+	}
 }
