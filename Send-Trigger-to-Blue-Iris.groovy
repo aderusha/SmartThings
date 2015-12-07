@@ -6,6 +6,7 @@
  *	https://github.com/aderusha/SmartThings/blob/master/Send-Trigger-to-Blue-Iris.groovy
  *	Copyright 2015 aderusha
  *	Version 0.0.1 - 2015-12-06 - Initial test release
+ *			0.0.2 - 2015-12-06 - Only trigger on "motion" or "open", added more debug logging
  *
  *	This SmartApp will send selected events to a Blue Iris server on the local network.
  *	
@@ -27,11 +28,11 @@
  */
 
 definition(
-    name: "Send Tigger to Blue Iris",
-    namespace: "aderusha",
-    author: "aderusha",
-    description: "Trigger Blue Iris in response to SmartThings events",
-    category: "Convenience",
+	name: "Send Tigger to Blue Iris",
+	namespace: "aderusha",
+	author: "aderusha",
+	description: "Trigger Blue Iris in response to SmartThings events",
+	category: "Convenience",
 	iconUrl: "https://raw.githubusercontent.com/aderusha/SmartThings/master/resources/BlueIris_logo.png",
 	iconX2Url: "https://raw.githubusercontent.com/aderusha/SmartThings/master/resources/BlueIris_logo%402x.png"
 )
@@ -70,10 +71,12 @@ def subscribeToEvents() {
 
 def eventHandlerBinary(evt) {
 	if ((evt.value == "active") || (evt.value == "open")) {
-		def biHost = "${settings.biServer}:${settings.biPort}"
-		def biRawCommand = "admin?camera=${settings.biCamera}&trigger&user=${settings.biUser}&pw=${settings.biPass}"
-		def biRestCommand = java.net.URLEncoder.encode(biRawCommand)
 		log.debug "processed event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
+		def biHost = "${settings.biServer}:${settings.biPort}"
+		log.debug "biHost:  $biHost"
+		def biRawCommand = "admin?camera=${settings.biCamera}&trigger&user=${settings.biUser}&pw=${settings.biPass}"
+		log.debug "biRawCommand:  $biRawCommand"
+		def biRestCommand = java.net.URLEncoder.encode(biRawCommand)
 		log.debug "biRestCommand:  $biRestCommand"
 		sendHubCommand(new physicalgraph.device.HubAction("""GET /?$biRestCommand HTTP/1.1\r\nHOST: $biHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
 	}
