@@ -7,6 +7,7 @@
  *	Copyright 2015 aderusha
  *	Version	0.0.1 - 2015-12-06 - Initial test release
  *		0.0.2 - 2015-12-06 - Only trigger on "motion" or "open", added more debug logging
+ *		0.0.3 - 2015-12-10 - Actually tested this against Blue Iris and made it work.
  *
  *	This SmartApp will send selected events to a Blue Iris server on the local network.
  *	
@@ -73,11 +74,18 @@ def eventHandlerBinary(evt) {
 	if ((evt.value == "active") || (evt.value == "open")) {
 		log.debug "processed event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
 		def biHost = "${settings.biServer}:${settings.biPort}"
-		log.debug "biHost:  $biHost"
-		def biRawCommand = "admin?camera=${settings.biCamera}&trigger&user=${settings.biUser}&pw=${settings.biPass}"
-		log.debug "biRawCommand:  $biRawCommand"
-		def biRestCommand = java.net.URLEncoder.encode(biRawCommand)
-		log.debug "biRestCommand:  $biRestCommand"
-		sendHubCommand(new physicalgraph.device.HubAction("""GET /?$biRestCommand HTTP/1.1\r\nHOST: $biHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+		def biRawCommand = "/admin?camera=${settings.biCamera}&trigger&user=${settings.biUser}&pw=${settings.biPass}"
+        log.debug "sending GET to URL http://$biHost/$biRawCommand"
+		def httpMethod = "GET"
+		def httpRequest = [
+			method:		httpMethod,
+			path: 		biRawCommand,
+			headers:	[
+        				HOST:		biHost,
+						Accept: 	"*/*",
+                    ]
+		]
+		def hubAction = new physicalgraph.device.HubAction(httpRequest)
+		sendHubCommand(hubAction)
 	}
 }
