@@ -10,9 +10,14 @@
  *		0.0.3 - 2015-12-10 - Actually tested this against Blue Iris and made it work.
  *
  *	This SmartApp will send selected events to a Blue Iris server on the local network.
+ *
+ *	This requires the Blue Iris web server to allow un-authenticated connections.  In
+ *	settings > Web Server > Advanced > Authentication select "Non-LAN only" (preferred)
+ *	or "No" to disable authentication altogether.
  *	
  *	TODO:
- *	- Test this mess
+ *	- Add device types
+ *	- Add configurable conditions
  *	
  *	ISSUES:
  *	-
