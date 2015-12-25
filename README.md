@@ -14,3 +14,8 @@ I want to be able to control a lock device from a SmartApp that can only handle 
  *  Unlocking the lock will turn off the switch
  *  Turning on the switch will lock the lock
  *  Turning off the switch will unlock the lock
+
+### [Send-Trigger-to-Blue-Iris.groovy](https://github.com/aderusha/SmartThings/blob/master/Send-Trigger-to-Blue-Iris.groovy)
+This SmartApp will send selected events to a Blue Iris server on the local network.
+
+This requires the Blue Iris web server to allow un-authenticated connections.  In settings > Web Server > Advanced > Authentication select "Non-LAN only" (preferred) or "No" to disable authentication altogether.
