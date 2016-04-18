@@ -8,7 +8,7 @@
  *	Version 1.0.0 - 2015-09-13 - Initial release
  *	Version 1.1.0 - 2015-09-15 - Changed handling of binary(ish) vs non-binary values to allow sending
  *	                             value data to EG to be handled via Python and eg.event.payload[]
- *  Version 1.2.0 - 2016-04-18 - Added support for individual button values
+ *	Version 1.2.0 - 2016-04-18 - Added support for individual button values
  *	
  *	This SmartApp will send selected events to an EventGhost server running the Webserver plugin.
  *	EventGhost is a Windows application used for event automation, find out more here: http://www.eventghost.org/
@@ -137,8 +137,8 @@ def eventHandlerValue(evt) {
 }
 
 def eventHandlerButton(evt) {
-    def buttonNumber = evt.jsonData.buttonNumber
-    def egHost = "${settings.egServer}:${settings.egPort}"
+	def buttonNumber = evt.jsonData.buttonNumber
+	def egHost = "${settings.egServer}:${settings.egPort}"
 	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}.$buttonNumber.${evt.value}"
 	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
 	log.debug "processed button event ${evt.name} from device ${evt.displayName} with value ${evt.value} and button $buttonNumber"
