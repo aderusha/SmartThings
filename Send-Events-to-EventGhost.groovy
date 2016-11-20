@@ -130,7 +130,8 @@ def eventHandlerValue(evt) {
 	def egHost = "${settings.egServer}:${settings.egPort}"
 	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}"
 	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
-	def egRestCommandValue = "$egRestCommand&${evt.value}"
+	def egRestValue = java.net.URLEncoder.encode("${evt.value}")
+	def egRestCommandValue = "$egRestCommand&$egRestValue"
 	log.debug "processed data event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
 	log.debug "egRestCommand:  $egRestCommandValue"
 	sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommandValue HTTP/1.1\r\nHOST: $egHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
