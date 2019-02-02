@@ -143,6 +143,20 @@ def eventHandlerButton(evt) {
 	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}.$buttonNumber.${evt.value}"
 	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
 	log.debug "processed button event ${evt.name} from device ${evt.displayName} with value ${evt.value} and button $buttonNumber"
-	log.debug "egRestCommand:  $egRestCommand"
-	sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommand HTTP/1.1\r\nHOST: $egHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+	log.debug "egRestCommand:  $egRestCommand ,  [${egRestCommand}]"
+	//sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommand HTTP/1.1\r\nHOST: $egHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+    
+    sendHubCommand(new physicalgraph.device.HubAction(
+    [
+        path: "/?$egRestCommand",
+        method: "GET",
+        HOST: "${egHost}",
+        headers: [
+            "Host":"$egHost",
+            "Accept":"application/json"
+        ]        
+    ],
+    null,
+    null
+    ))
 }
